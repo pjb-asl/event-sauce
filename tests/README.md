@@ -1,28 +1,52 @@
 # Event Test Scenarios
 
+## Event change identification testing...a.k.a Sequencing
+
+### Scenario ec.01
+
+The new event is confirmed as different to the previous event
+
+### Scenario ec.02
+
+The new event is confirmed as the same as the previous event
+
+### Scenario ec.03
+
+The next event is confirmed as being the same as the new event
+
+## Event order testing...
+
+### Scenario eo.01
+
+The previous event (compared to the supplied event) is retrieved from the events list
+
 ## Event sequence testing....
 
 ### Scenario es.01
 
-This is the first event observed for the entity and therefore there is no previous status aggregation/summary. This assumes the aggregate rules for creating one have been fulfilled.
+This is the first event observed for the entity and therefore needs to be recorded.
 
 ### Scenario es.02
 
-This is the second event observed and the events have arrived in order. The event needs to be recorded and the new aggregate calculated. This assumes the aggregate rules for creating one have been fulfilled.
+This is the second event observed and the events have arrived in order. The event needs to be recorded. 
 
 ### Scenario es.03
 
-This is the third event observed and the events have arrived in order. The event needs to be recorded and the new aggregate calculated. This assumes the aggregate rules for creating one have been fulfilled.
+This is the third event observed and the events have arrived in order. The event needs to be recorded.
 
 ### Scenario es.04
 
-This is the third event observed and the events have arrived out of order. The third event recieved is actually the second event when ordered. The event needs to be recorded and the old aggregate needs removing and two new ones adding. This assumes the aggregate rules for creating one have been fulfilled.
+This is the third event observed and the events have arrived out of order. The third event recieved is actually the second event when ordered. The event needs to be recorded.
 
 ### Scenario es.05
 
-This is the second event observed and the events have arrived out of order. The second event recieved is actually the first event when ordered. The event needs to be recorded and the original aggregate needs removing and two new ones adding. This assumes the aggregate rules for creating one have been fulfilled.
+This is the second event observed and the events have arrived out of order. The second event recieved is actually the first event when ordered. The event needs to be recorded.
 
-## Event aggregation trigger testing...
+### Scenario es.06
+
+This is the third event observed and the events have arrived out of order. The third event recieved is actually the second event when ordered. The event needs to be recorded. The third event in the sorted list isn't different to the second and therefore needs to be deleted.
+
+## Event aggregation trigger testing...a.k.a. Summarising - TODO!!!!
 
 ### Scenario at.01
 
