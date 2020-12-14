@@ -1,4 +1,5 @@
 from event_sauce import summarizer
+from event_sauce import test_classifier
 
 
 def test_initial_event_with_significant_delta_creates_new_entity_state_01():
@@ -201,30 +202,33 @@ def test_fifth_event_with_significant_delta_creates_four_entity_states_ignoring_
 
 
 def test_has_a_significant_delta_function_01():
+    sum = test_classifier.TestClassifier()
     events = [
         {"event_time": 1606809600, "key": "a3c78825-d99f-4901-aa4f-395fcefe9751", "state": 1},
         {"event_time": 1606809700, "key": "a3c78825-d99f-4901-aa4f-395fcefe9751", "state": 2}
     ]
     expected = True
-    result = summarizer.has_a_significant_delta(events[0], events[1])
+    result = summarizer.has_a_significant_delta(events[0], events[1], sum.significant_fields())
     assert expected == result
 
 
 def test_has_a_significant_delta_function_02_no_significance():
+    sum = test_classifier.TestClassifier()
     events = [
         {"event_time": 1606809600, "key": "a3c78825-d99f-4901-aa4f-395fcefe9751", "state": 1},
         {"event_time": 1606809700, "key": "a3c78825-d99f-4901-aa4f-395fcefe9751", "state": 1}
     ]
     expected = False
-    result = summarizer.has_a_significant_delta(events[0], events[1])
+    result = summarizer.has_a_significant_delta(events[0], events[1], sum.significant_fields())
     assert expected == result
 
 
 def test_has_a_significant_delta_function_03_no_significance_but_has_an_insignificant_change():
+    sum = test_classifier.TestClassifier()
     events = [
         {"event_time": 1606809600, "key": "a3c78825-d99f-4901-aa4f-395fcefe9751", "state": 1, "count": 1},
         {"event_time": 1606809700, "key": "a3c78825-d99f-4901-aa4f-395fcefe9751", "state": 1, "count": 2}
     ]
     expected = False
-    result = summarizer.has_a_significant_delta(events[0], events[1])
+    result = summarizer.has_a_significant_delta(events[0], events[1], sum.significant_fields())
     assert expected == result

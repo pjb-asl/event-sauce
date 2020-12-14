@@ -1,7 +1,7 @@
 import abc
 
 
-class EventSummerizer(abc.ABC):
+class Classifier(abc.ABC):
     @abc.abstractmethod
     def significant_fields(self):
         pass

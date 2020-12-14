@@ -1,7 +1,7 @@
-import event_summarizer
+from event_sauce import classifier_interface
 
 
-class TestSummarizer(event_summarizer.EventSummarizer):
+class TestClassifier(classifier_interface.Classifier):
 
     def __init__(self):
         self._significant_fields = {
@@ -27,16 +27,14 @@ class TestSummarizer(event_summarizer.EventSummarizer):
 
     def classify_state_change(self, previous, current):
         if previous is not None:
-            # I think this needs to be more obvious from a sequencial POV
-            # e.g. State, Price, Decription order of precedence
-            # Also this needs cope with multiple states changing in one observation
+            # Delta 01 - State
             if previous['state'] != current['state']:
-                # Can I move message templates to a method
                 return {
                     'type': self._state_map[current['state']],
                     'event_time': current['event_time'],
                     'key': current['key']
                 }
+            # Delta 02 - Price
             if 'price' in previous:
                 if previous['price'] != current['price']:
                     difference = self.calculate_difference(previous['price'], current['price'])
@@ -57,6 +55,7 @@ class TestSummarizer(event_summarizer.EventSummarizer):
                         'price': current['price']
                     }
         else:
+            # Delta 1 - State but first time seen
             return {
                 'type': self._state_map[current['state']],
                 'event_time': current['event_time'],
